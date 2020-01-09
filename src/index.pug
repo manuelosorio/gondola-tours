@@ -1,0 +1,64 @@
+doctype html
+html(lang="en")
+  head
+    title Gondola Tours
+    meta(charset="utf-8")
+    meta(name="Author" content="Manuel Osorio")
+    meta(name="description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    
+    // Open Graph - Facebook, Google, LinkedIn
+    meta(property="og:type" content="Website")
+    meta(property="og:description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    meta(property="og:image" content="images/hero-social.jpg")
+    meta(property="og:url" content="http://valenciawebstudio.com/misicka2724/students/osorio/p3/")
+    meta(property="og:site_name" content="Gondola Tours")
+    //end Open Graph
+
+    //Twitter Meta Content
+    meta(property="twitter:card" content="summary_large_image")
+    meta(property="twitter:title" content="Gondola Tours")
+    meta(property="twitter:description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    meta(property="twitter:image" content="images/hero-social.jpg")
+    meta(property="twitter:site" content="http://valenciawebstudio.com/misicka2724/students/osorio/p3/")
+    meta(property="twitter:creator" content="@MKDesignzManuel")
+    //End Twitter Meta Content
+
+    meta(name="robots" content="noindex, nofollow")
+    meta(name="viewport" content="width=device-width,initial-scale=1.0")
+    
+    link(rel="stylesheet" href="css/style.css")
+    link(rel="preload" as="font" href="./fonts/bodoni/BodoniURW-Med.woff" type="font/woff" crossorigin="anonymous")
+    link(rel="preload" as="font" href="./fonts/bodoni/BodoniURWNar-Bol.woff" type="font/woff" crossorigin="anonymous")
+    link(rel="preload" as="font" href="./fonts/futura/Futura-Boo.woff" type="font/woff" crossorigin="anonymous")
+      
+    //Favicon
+    link(rel='apple-touch-icon' sizes='180x180' href='./images/apple-touch-icon.png')
+    link(rel='icon' type='image/png' sizes='32x32' href='./images/favicon-32x32.png')
+    link(rel='icon' type='image/png' sizes='16x16' href='./images/favicon-16x16.png')
+    link(rel='manifest' href='./images/site.webmanifest')
+    link(rel='mask-icon' href='./images/safari-pinned-tab.svg' color='#e0af25')
+    meta(name='msapplication-TileColor' content='#e0af25')
+    meta(name='theme-color' content='#e0af25')
+
+  body
+    - var current = "index.html"
+    include includes/nav.pug
+    include includes/header.pug
+    main.l-container
+      section
+        h2 Grand Canal
+        .l-container__nested
+          .l-column.l-column--4.l-tours__description 
+            p View the beatiful city of Venice through the Grand Canal. Getting in sites Santa Maria della Salute
+            a(href="#").tours--link.btn.btn--underline Learn More
+          img(src="./images/grand-canal-day.png" alt="").tours--image.l-column.l-column--8.l-tours__image
+          
+      section
+        h2 Morning/Evening Tours
+        .l-container__nested
+          img(src="./images/evening.jpg" alt="").tours--image.l-column.l-column--8.l-tours__image
+          .l-column.l-column--4.l-tours__description
+            p Can't get enough of Venice? You can book a morning or evening tour to experience the city from a new prospective. Touring through the Grand Canal and others. Great for sight seeing the city when its less crowded.
+            a(href="#").tours--link.btn.btn--underline Learn More
+    include includes/footer.pug
+    script(src="scripts/script.js")

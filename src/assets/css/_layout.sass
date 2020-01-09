@@ -1,0 +1,100 @@
+/*----------------------  Layout  ----------------------
+  /**
+    *
+    * Layout Syntax Example:
+    *
+    * .l-container { ... }
+    *
+    * Sass Syntax
+    *
+    * .l-
+    *   &container
+    *     ...
+    *
+    * <section class="l-container"> ... </section>
+    *
+    *
+    *
+
+/*----------------------  End Layout  ----------------------
+
+.l-
+  &container
+    display: flex
+    flex-direction: column
+    width: 80%
+    flex-basis: 80%
+    max-width: 1200px
+    margin: 0 auto
+    &__nav
+      display: flex
+      flex-direction: column
+      width: 100%
+      align-items: center
+    &__list
+      display: flex
+      width: 90%
+      flex-basis: 90%
+      max-width: 1200px
+      flex-direction: column
+      text-align: center
+      justify-content: space-evenly
+      // position: absolute
+      // top: 0
+      // display: none
+      // transform: scaleY(0) translatey(-100%)
+      @media screen and (min-width: $medium)
+        justify-content: space-between
+        flex-direction: row
+        text-align: left
+    &__nested
+      display: flex
+      width: 100%
+      flex-wrap: wrap
+    &__footer
+      flex-direction: row
+      flex-wrap: wrap
+      justify-content: space-between
+    &__login
+      @extend .l-container
+      text-align: center
+      align-items: center
+      position: absolute
+      top: 50%
+      left: 50%
+      margin: 0
+      transform: translate(-50%, -50%)
+      flex-direction: row
+    &--card__blog
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+  &column
+    + .l-column
+      margin-top: 2%
+    @for $i from 1 through 12
+        &--#{$i}
+          max-width: 98%
+          flex-basis: 98%
+    @media screen and (min-width: $medium)
+      + .l-column
+        margin-top: 0
+        margin-left: 2%
+      @for $i from 1 through 12
+        &--#{$i}
+          max-width: unquote(($gridWidth * $i) - $gutter + ($gutterSpace * $i) + '%')
+          flex-basis: unquote(($gridWidth * $i) - $gutter + ($gutterSpace * $i) + '%')
+  &footer
+    @media screen and (min-width: $medium)
+      &__left
+        width: 50%
+        margin-right: 2%
+      &__right
+        width: 30%
+  &tours
+    @media screen and (max-width: $medium)
+      &__image
+        order: 1
+      &__description
+        order: 2
+        margin-top: 1.125rem

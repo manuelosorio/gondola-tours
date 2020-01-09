@@ -1,0 +1,25 @@
+.nav
+  &--logo
+    display: block
+    width: 11.25rem
+    width: 180px
+  &--list
+
+    li + li
+      margin: 2rem 0
+
+      @media screen and (min-width: $medium)
+        margin: initial
+    &__navigation
+      @extend .nav--list
+    &__customer
+      @extend .nav--list
+    @media screen and (min-width: $medium)
+      &__navigation
+        display: flex
+        width: 40%
+        justify-content: space-between
+      &__customer
+        display: flex
+        width: 30%
+        justify-content: space-around

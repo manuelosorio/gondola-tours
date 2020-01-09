@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+  head
+    title Gondola Tours - 404
+    meta(charset="utf-8")
+    meta(name="Author" content="Manuel Osorio")
+    meta(name="description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    
+    // Open Graph - Facebook, Google, LinkedIn
+    meta(property="og:type" content="Website")
+    meta(property="og:description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    meta(property="og:image" content="images/hero-social.jpg")
+    meta(property="og:url" content="http://valenciawebstudio.com/misicka2724/students/osorio/p3/")
+    meta(property="og:site_name" content="Gondola Tours")
+    //end Open Graph
+
+    //Twitter Meta Content
+    meta(property="twitter:card" content="summary_large_image")
+    meta(property="twitter:title" content="Gondola Tours")
+    meta(property="twitter:description" content="Gondola Tours is company based in Venice, Italy providing tours around the Venice Canals.")
+    meta(property="twitter:image" content="images/hero-social.jpg")
+    meta(property="twitter:site" content="http://valenciawebstudio.com/misicka2724/students/osorio/p3/")
+    meta(property="twitter:creator" content="@MKDesignzManuel")
+    //End Twitter Meta Content
+
+    meta(name="robots" content="noindex, nofollow")
+    meta(name="viewport" content="width=device-width,initial-scale=1.0")
+    
+    link(rel="stylesheet" href="./css/style.css")
+    link(rel="preload" as="font" href="./fonts/bodoni/BodoniURW-Med.woff" type="font/woff" crossorigin="anonymous")
+    link(rel="preload" as="font" href="./fonts/bodoni/BodoniURWNar-Bol.woff" type="font/woff" crossorigin="anonymous")
+    link(rel="preload" as="font" href="./fonts/futura/Futura-Boo.woff" type="font/woff" crossorigin="anonymous")
+      
+    //Favicon
+    link(rel='apple-touch-icon' sizes='180x180' href='./images/apple-touch-icon.png')
+    link(rel='icon' type='image/png' sizes='32x32' href='./images/favicon-32x32.png')
+    link(rel='icon' type='image/png' sizes='16x16' href='./images/favicon-16x16.png')
+    link(rel='manifest' href='./images/site.webmanifest')
+    link(rel='mask-icon' href='./images/safari-pinned-tab.svg' color='#e0af25')
+    meta(name='msapplication-TileColor' content='#e0af25')
+    meta(name='theme-color' content='#e0af25')
+  body
+    - var current = "404.html"
+    include ../includes/nav.pug
+    main#error-404
+      section.l-container.error
+        h2.error--joke Gondolas Not found
+        h1.error--code 404
+          br
+          span.error--message Page has been deleted or moved
+        a(href="./").btn.btn--underline.btn--underline__white Return Home
+    script(src="./scripts/script.js")

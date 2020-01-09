@@ -1,0 +1,108 @@
+/*
+  Futura
+*/
+@font-face {
+  font-family: 'futura';
+  src: url("../fonts/futura/Futura-Boo.eot") format('embedded-opentype'),
+       url("../fonts/futura/Futura-Lig.woff") format('woff'),
+       url("../fonts/futura/Futura-Lig.ttf") format('truetype'),
+       url("../fonts/futura/Futura-Lig.svg") format('svg');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'futura';
+  src: url("../fonts/futura/Futura-Boo.eot") format('embedded-opentype'),
+       url("../fonts/futura/Futura-Boo.woff") format('woff'),
+       url("../fonts/futura/Futura-Boo.ttf") format('truetype'),
+       url("../fonts/futura/Futura-Boo.svg") format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'futura';
+  src: url("../fonts/futura/Futura-Med.eot") format('embedded-opentype'),
+       url("../fonts/futura/Futura-Med.woff") format('woff'),
+       url("../fonts/futura/Futura-Med.ttf") format('truetype'),
+       url("../fonts/futura/Futura-Med.svg") format('svg');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/*
+  Bodoni
+*/
+@font-face {
+  font-family: 'bodoni';
+  src: url("../fonts/bodoni/BodoniURW-Med.eot") format('embedded-opentype'),
+       url("../fonts/bodoni/BodoniURW-Med.woff") format('woff'),
+       url("../fonts/bodoni/BodoniURW-Med.ttf") format('truetype'),
+       url("../fonts/bodoni/BodoniURW-Med.svg") format('svg');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'bodoni';
+  src: url("../fonts/bodoni/BodoniURWNar-Bol.eot") format('embedded-opentype'),
+       url("../fonts/bodoni/BodoniURWNar-Bol.woff") format('woff'),
+       url("../fonts/bodoni/BodoniURWNar-Bol.ttf") format('truetype'),
+       url("../fonts/bodoni/BodoniURWNar-Bol.svg") format('svg');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?yr01ob');
+  src:  url('../fonts/icomoon.eot?yr01ob#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?yr01ob') format('truetype'),
+    url('../fonts/icomoon.woff?yr01ob') format('woff'),
+    url('../fonts/icomoon.svg?yr01ob#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-angle-double-down:before {
+  content: "\f103";
+}
+.icon-angle-down:before {
+  content: "\f107";
+}
+.icon-google:before {
+  content: "\ea88";
+}
+.icon-facebook:before {
+  content: "\ea90";
+}
+.icon-facebook2:before {
+  content: "\ea91";
+}
+.icon-instagram:before {
+  content: "\ea92";
+}
+.icon-twitter:before {
+  content: "\ea96";
+}
+.icon-youtube:before {
+  content: "\ea9d";
+}

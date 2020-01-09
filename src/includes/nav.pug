@@ -1,0 +1,116 @@
+nav.l-container__nav
+  if current === "404.html"
+    a(href="./").nav--logo
+      img(src="./images/gondola-tours.svg" alt="Gondola Tours Logo")
+  else if current === "login.html"
+    a(href="../").nav--logo
+      img(src="../images/gondola-tours.svg" alt="Gondola Tours Logo")
+  else
+    a(href="./").nav--logo
+      img(src="./images/gondola-tours.svg" alt="Gondola Tours Logo")
+  .l-container__list
+    ul.nav--list__navigation
+      if current === "index.html"
+        li.is-active
+          a(href="./") Home
+        li
+          a(href="./about.html") About Us
+        li
+          a(href="./tours.html") Our Tours
+        li
+          a(href="./blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+      else if current === "about.html"
+        li
+          a(href="./") Home
+        li.is-active
+          a(href="./about.html") About Us
+        li
+          a(href="./tours.html") Our Tours
+        li
+          a(href="./blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+      else if current === "tours.html"
+        li
+          a(href="./") Home
+        li
+          a(href="./about.html") About Us
+        li.is-active
+          a(href="./tours.html") Our Tours
+        li
+          a(href="./blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+      else if current === "blog.html"
+        li
+          a(href="./") Home
+        li
+          a(href="./about.html") About Us
+        li
+          a(href="./tours.html") Our Tours
+        li.is-active
+          a(href="./blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+      else if current === "contact.html"
+        li
+          a(href="./") Home
+        li
+          a(href="./about.html") About Us
+        li
+          a(href="./tours.html") Our Tours
+        li
+          a(href="./blog.html") blog
+        li.is-active
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+      else if current === "login.html"
+        li
+          a(href="../") Home
+        li
+          a(href="../about.html") About Us
+        li
+          a(href="../tours.html") Our Tours
+        li
+          a(href="../blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="../contact.html") Contact
+      else
+        li
+          a(href="./") Home
+        li
+          a(href="./about.html") About Us
+        li
+          a(href="./tours.html") Our Tours
+        li
+          a(href="./blog.html") blog
+        li
+          // Intentional Linking error
+          |
+          |
+          a(href="./contact.html") Contact
+        
+    ul.nav--list__customer
+      li
+        a(href="#") New Customer
+      li
+        a(href="./auth/login.html") Returning Customer

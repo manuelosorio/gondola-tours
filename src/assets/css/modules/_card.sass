@@ -1,0 +1,76 @@
+.card
+  background: $white
+  box-shadow: 0 3px 6px rgba($primary, 0.40)
+  position: relative
+  overflow: hidden
+  margin: 2% 0 0 2%
+  &__login
+    @extend .card
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+  &--left
+    display: flex
+    flex-direction: column
+    width: 98%
+  &--right
+    @extend .card--left
+    background: $primary-light
+  @media screen and (min-width: $medium)
+    &__login
+      flex-direction: row
+    &--left, &--right
+      width: 48%
+  &__blog
+    @extend .card
+  @media screen and (min-width: $medium) and (max-width: 1100px)
+    max-width: 48%
+    flex-basis: 48%
+    // margin: 0.3rem
+  &--image
+    position: relative
+    z-index: 1
+    &__blog
+      width: 48%
+  &--info
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    padding: 0 1rem
+    &__title
+      font-size: 1.75rem
+    &__blog-title
+      @extend .card--info__title
+      margin: 0
+    &__other-info
+      color: lighten($black, 5%)
+      margin: .5rem 0
+
+  &--description
+    color: $black
+    padding: .75rem 1rem
+    margin: .5rem 0
+    font-weight: $weight-medium
+    &__blog
+      @extend .card--description
+      padding: 0
+.sub-card
+  position: absolute
+  z-index: 999
+  top: 0
+  bottom: 0
+  background: $white
+  transform: translateY(80%)
+  transition: $transition
+  &__blog
+    width: 48%
+    display: flex
+    flex-direction: column
+    justify-content: space-evenly
+.card:hover .sub-card
+  transform: translateY(0%)
+.cards
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
