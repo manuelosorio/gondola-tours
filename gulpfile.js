@@ -1,28 +1,36 @@
 const gulp = require("gulp"),
-    clean = require("gulp-clean"),
-    deploy = require('gulp-gh-pages'),
-    sass = require("gulp-sass"),
-    postcss = require("gulp-postcss"),
-    pug = require("gulp-pug"),
-    imagemin = require('gulp-imagemin'),
-    newer = require('gulp-newer'),
-    plumber = require('gulp-plumber'),
-    autoprefixer = require("autoprefixer"),
-    cssnano = require("cssnano"),
-    sourcemaps = require("gulp-sourcemaps"),
-    browserSync = require("browser-sync").create(),
-    bourbon = require('node-bourbon').includePaths,
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify-es').default;
+  clean = require("gulp-clean"),
+  deploy = require('gulp-gh-pages'),
+  sass = require("gulp-dart-sass"),
+  postcss = require("gulp-postcss"),
+  pug = require("gulp-pug"),
+  imagemin = require('gulp-imagemin'),
+  newer = require('gulp-newer'),
+  plumber = require('gulp-plumber'),
+  autoPrefixer = require("autoprefixer"),
+  sourcemaps = require("gulp-sourcemaps"),
+  browserSync = require("browser-sync").create(),
+  bourbon = require('node-bourbon').includePaths,
+  uglify = require('gulp-uglify-es').default,
+  babelify = require('babelify'),
+  resets = require('scss-resets').includePaths,
+  buffer = require('vinyl-buffer'),
+  browserify = require('browserify'),
+  file = require('gulp-file'),
+  tsify = require('tsify'),
+  source = require("vinyl-source-stream");
 
+let config = {
+  cname: ''
+}
 let paths ={
   styles: {
-      src: "src/assets/css/**/*.{sass,scss}",
-      dest: "_dist/css"
+    src: "src/assets/css/**/*.{sass,scss}",
+    dest: "_dist/css"
   },
   fonts: {
-      src: "src/assets/fonts/**",
-      dest: "_dist/fonts"
+    src: "src/assets/fonts/**",
+    dest: "_dist/fonts"
   },
   html: {
     src: "src/**/*.pug",
@@ -30,29 +38,28 @@ let paths ={
     dest: "_dist/"
   },
   images: {
-    src: "src/assets/images/**/*.{jpg,jpeg,png,svg}",
+    src: "src/assets/images/**/*.{jpg,jpeg,png,svg,ico,xml,manifest,webmanifest}",
     dest: "_dist/images"
   },
   scripts: {
-    src: "src/assets/scripts/**/*.js",
+    core_js: "src/assets/scripts/core.ts",
+    src: "src/assets/scripts/main.ts",
+    watch: "src/assets/scripts/**/*.ts",
     dest: "_dist/scripts"
   },
-  fonts: {
-    src: "src/assets/fonts/**",
-    dest: "_dist/fonts"
-  }
 }
+
 function style() {
   return gulp
     .src(paths.styles.src)
     .pipe(sourcemaps.init())
+    .pipe(plumber())
     .pipe(sass({
-      includePaths: require('node-normalize-scss').with(['styles'].concat(bourbon)),
+      includePaths: resets.concat(bourbon),
       outputStyle: "expanded"
-    }))
-    .on("error", sass.logError)
-    .pipe(postcss([autoprefixer()]))
-    .pipe(sourcemaps.write())
+    }).on('error', sass.logError))
+    .pipe(postcss([autoPrefixer()]))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.styles.dest))
     .pipe(browserSync.stream());
 }
@@ -65,6 +72,7 @@ function html() {
     .pipe(pug({
       pretty: true
     }))
+    .pipe(plumber())
     .pipe(gulp.dest(paths.html.dest))
 }
 function font() {
@@ -79,7 +87,7 @@ function images () {
     .pipe(
       imagemin([
         imagemin.gifsicle({ interlaced: true }),
-        imagemin.jpegtran({ progressive: true }),
+        imagemin.mozjpeg({ progressive: true }),
         imagemin.optipng({ optimizationLevel: 5 }),
         imagemin.svgo({
           plugins: [
@@ -94,18 +102,28 @@ function images () {
     .pipe(gulp.dest(paths.images.dest))
     .pipe(browserSync.stream());
 }
+const bundler = browserify({
+  debug: true,
+  entries: [paths.scripts.src],
+  cache: {}
+})
+  .plugin(tsify, {target: 'es6'})
+  .transform(babelify, {
+    extensions: ['.ts']
+  }).bundle();
 function scripts() {
-  return gulp.src(paths.scripts.src)
-    // .pipe(concat('script.js'))
+  return bundler.pipe(source('main.js'))
+    .pipe(gulp.dest(paths.scripts.dest))
+}
+function scriptsMinify() {
+  return bundler.pipe(source('main.js'))
+    .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(paths.scripts.dest))
 }
 function fonts() {
   return gulp.src(paths.fonts.src)
   .pipe(gulp.dest(paths.fonts.dest))
-}
-function reload() {
-  browserSync.reload();
 }
 function cleanDist() {
   return gulp.src('./_dist', {allowEmpty:true})
@@ -117,19 +135,28 @@ function watch() {
       baseDir: "./_dist"
     },
     middleware: function(req,res,next) {
-      if (req.url == '/404') {
+      if (req.url === '/404') {
         req.url = './errors/404.html';
       }
-      console.log(req.url + ": " + req.statusCode)
       return next();
     }
   });
   gulp.watch(paths.styles.src, style).on('change', browserSync.reload);
   gulp.watch(paths.images.src, images).on('change', browserSync.reload);
   gulp.watch(paths.scripts.src, scripts).on('change', browserSync.reload);
-  gulp.watch(paths.fonts.src, scripts).on('change', browserSync.reload);
+  gulp.watch(paths.fonts.src, fonts).on('change', browserSync.reload);
   gulp.watch(paths.html.src, html).on('change', browserSync.reload);
 }
+
+function ghPages() {
+  return gulp.src("./_dist/**/*")
+    .pipe(file('CNAME', config.cname))
+    .pipe(deploy({
+      remoteUrl: "git@github.com:manuelosorio/gondola-tours.git",
+      branch: "gh-pages"
+    }))
+}
+
 exports.cleanDist = cleanDist
 exports.watch = watch
 exports.style = style
@@ -138,16 +165,13 @@ exports.images = images
 exports.html = html
 exports.scripts = scripts
 exports.fonts = fonts
+exports.ghPages = ghPages
 
-let build = gulp.parallel([html, style, fonts, images, scripts, fonts]);
-let buildWatch = gulp.parallel([html, style, fonts, images, scripts, fonts], watch);
+let build = gulp.series([html, style, fonts, images, scripts, fonts]);
+let buildWatch = gulp.parallel([html, style, fonts, images, scriptsMinify, fonts], watch);
+let staticBuild = gulp.series(cleanDist, build)
 
-gulp.task('default', buildWatch)
-gulp.task('static', build)
-gulp.task('deploy', function () {
-return gulp.src("./_dist/**/*")
-  .pipe(deploy({
-    remoteUrl: "https://github.com/manuelosorio/starter-kit.git",
-    branch: "gh-pages"
-  }))
-})
+gulp.task('default', gulp.series(cleanDist, buildWatch))
+gulp.task('static', gulp.series(staticBuild))
+// scriptsMinify
+gulp.task('deploy', gulp.series(staticBuild, ghPages));
