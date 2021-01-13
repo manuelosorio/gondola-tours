@@ -392,9 +392,19 @@ template {
 }
 
 html {
-  font-size: 100%;
+  font-size: 92%;
 }
 
+@media (min-width: 768px) {
+  html {
+    font-size: 96%;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 100%;
+  }
+}
 body {
   font: 300 1.125rem "futura", Helvetica, Arial, sans-serif;
   line-height: 1.2;
@@ -402,12 +412,12 @@ body {
 }
 
 h1 {
-  font: 800 3.1875rem "bodoni", Times, serif;
+  font: 800 4.3125rem "bodoni", Times, serif;
   color: #f9f9f9;
 }
 @media screen and (min-width: 768px) {
   h1 {
-    font: 800 5.3125rem "bodoni", Times, serif;
+    font: 800 4.3125rem "bodoni", Times, serif;
   }
 }
 
@@ -1089,6 +1099,92 @@ footer {
   width: 10rem;
 }
 
+.slider__container {
+  position: relative;
+  height: 500px;
+  width: 100vw;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.slider__slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 100%;
+}
+.slider__slide[data-slide="0"] {
+  opacity: 1;
+  left: 0;
+}
+.slider__caption {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  -webkit-transform: translateX(-65%);
+      -ms-transform: translateX(-65%);
+          transform: translateX(-65%);
+  text-shadow: 3px 2px 5px rgba(64, 64, 64, 0.8);
+  line-height: 0.6rem;
+}
+.slider__caption--1 {
+  line-height: 1rem;
+  margin-top: 2rem;
+  padding: 2rem;
+}
+.slider__caption .sub {
+  font-size: 2.5rem;
+}
+.slider__caption .small {
+  font-size: 1.125rem;
+}
+.slider__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  z-index: 70;
+  position: absolute;
+  bottom: 1rem;
+}
+.slider__nav--item {
+  height: 1.6rem;
+  width: 1.6rem;
+  border: 4px #f9f9f9 solid;
+  -webkit-box-shadow: 0 3px 6px rgba(64, 64, 64, 0.6);
+          box-shadow: 0 3px 6px rgba(64, 64, 64, 0.6);
+  position: relative;
+  cursor: pointer;
+  z-index: 200;
+  -webkit-transition: 200ms ease-in-out;
+  -o-transition: 200ms ease-in-out;
+  transition: 200ms ease-in-out;
+  opacity: 0.75;
+}
+.slider__nav--item:hover {
+  background-color: #f9f9f9;
+}
+.slider__nav--item[data-nav="0"] {
+  opacity: 1;
+  background-color: #f9f9f9;
+}
+.slider__nav--item + .slider__nav--item {
+  margin-left: 1.5rem;
+}
+
 /*----------------------  States  ---------------------- */
 /*----------------------  End States  ---------------------- */
 /*----------------------  Shame  ---------------------- */
@@ -1157,7 +1253,7 @@ footer {
   font: 400 2.5rem "futura", Helvetica, Arial, sans-serif;
 }
 .error--code {
-  font-size: 8.75rem;
+  font-size: 6.75rem;
   line-height: 3rem;
   -webkit-font-kerning: normal;
           font-kerning: normal;
