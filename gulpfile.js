@@ -120,8 +120,8 @@ function scripts() {
     b.plugin(tsify)
       .transform(babelify, {
         extensions: ['.ts'],
-      })
-      .bundle()
+      }).bundle()
+      .on('error', (error) => { console.error(error); })
       .pipe(source('main.js'))
       .pipe(gulp.dest(paths.scripts.dest))
   })
@@ -194,7 +194,7 @@ let build = gulp.parallel([html, style, fonts, images, scriptsMinify, fonts]);
 let buildWatch = gulp.series(gulp.parallel([html, style, fonts, images, scripts, fonts]), watch);
 let staticBuild = gulp.series(cleanDist, build)
 
-gulp.task('default', gulp.series(buildWatch))
+gulp.task('default', gulp.series(cleanDist, buildWatch))
 gulp.task('static', gulp.series(staticBuild))
 // scriptsMinify
 gulp.task('deploy', gulp.series(staticBuild, ghPages));
