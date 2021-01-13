@@ -17,14 +17,22 @@
   &::selection
     background: $primary
     color: $white
+
 html
-  font-size: 100%
+  font-size: 92%
+@media (min-width: $medium)
+  html
+    font-size: 96%
+@media (min-width: $large)
+  html
+    font-size: 100%
 body
   font: $weight-book $text-sm $futura
   line-height: 1.2
   color: $black
 h1
-  font: $weight-bold $text-lg*.60 $bodoni
+  font: $weight-bold $text-lg $bodoni
+  //line-height: 0.6
   color: $white
   @media screen and (min-width: $medium)
     font: $weight-bold $text-lg $bodoni

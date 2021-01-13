@@ -1,0 +1,60 @@
+.slider
+  &__container
+    position: relative
+    height: 500px
+    width: 100vw
+    overflow: hidden
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: center
+  &__slide
+    position: absolute
+    +size(100%)
+    left: 100%
+    // opacity: 0
+    &[data-slide="0"]
+      opacity: 1
+      left: 0
+  &__caption
+    position: absolute
+    top: 1rem
+    left: 50%
+    transform: translateX(-65%)
+    text-shadow: 3px 2px 5px rgba($black, .80)
+    line-height: 0.60rem
+    //h1
+    //  line-height: inherit
+    //&--0
+    &--1
+      line-height: 1rem
+      margin-top: 2rem
+      padding: 2rem
+    //&--2
+    .sub
+      font-size: $text-md
+    .small
+      font-size: $text-sm
+  &__nav
+    display: flex
+    flex-direction: row
+    z-index: 70
+    position: absolute
+    bottom: 1rem
+    &--item
+      +size(1.6rem)
+      border: 4px $white solid
+      box-shadow: 0 3px 6px rgba($black, .6)
+      position: relative
+      //top: 24rem
+      cursor: pointer
+      z-index: 200
+      transition: $transition
+      opacity: .75
+      &:hover
+        background-color: $white
+      &[data-nav="0"]
+        opacity: 1
+        background-color: $white
+    &--item + .slider__nav--item
+      margin-left: 1.5rem
