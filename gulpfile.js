@@ -18,7 +18,8 @@ const gulp = require("gulp"),
   browserify = require('browserify'),
   file = require('gulp-file'),
   tsify = require('tsify'),
-  source = require("vinyl-source-stream");
+  source = require("vinyl-source-stream"),
+  glob = require('glob');
 
 let config = {
   cname: ''
@@ -102,20 +103,41 @@ function images () {
     .pipe(gulp.dest(paths.images.dest))
     .pipe(browserSync.stream());
 }
-const bundler = browserify({
-  debug: true,
-  entries: [paths.scripts.src],
-  cache: {}
-})
-  .plugin(tsify, {target: 'es6'})
-  .transform(babelify, {
-    extensions: ['.ts']
-  }).bundle();
 function scripts() {
-  return bundler.pipe(source('main.js'))
-    .pipe(gulp.dest(paths.scripts.dest))
+  return glob(paths.scripts.watch, {}, (err, files) => {
+    if (err) {
+      console.log('Error')
+    }
+    const b = browserify({
+      debug: true,
+      cache: {},
+      packageCache: {},
+    });
+    files.forEach((file) => {
+      console.log(file)
+      b.add(file);
+    })
+    b.plugin(tsify)
+      .transform(babelify, {
+        extensions: ['.ts'],
+      })
+      .bundle()
+      .pipe(source('main.js'))
+      .pipe(gulp.dest(paths.scripts.dest))
+  })
 }
 function scriptsMinify() {
+  const bundler = browserify({
+    debug: true,
+    baseDir: '.',
+    entries: [paths.scripts.src],
+    cache: {},
+    packageCache: {}
+  })
+    .plugin(tsify)
+    .transform(babelify, {
+      extensions: ['.ts']
+    }).bundle();
   return bundler.pipe(source('main.js'))
     .pipe(buffer())
     .pipe(uglify())
@@ -132,8 +154,9 @@ function cleanDist() {
 function watch() {
   browserSync.init({
     server: {
-      baseDir: "./_dist"
+      baseDir: "./_dist",
     },
+    open: false,
     middleware: function(req,res,next) {
       if (req.url === '/404') {
         req.url = './errors/404.html';
@@ -167,11 +190,11 @@ exports.scripts = scripts
 exports.fonts = fonts
 exports.ghPages = ghPages
 
-let build = gulp.series([html, style, fonts, images, scripts, fonts]);
-let buildWatch = gulp.parallel([html, style, fonts, images, scriptsMinify, fonts], watch);
+let build = gulp.parallel([html, style, fonts, images, scriptsMinify, fonts]);
+let buildWatch = gulp.series(gulp.parallel([html, style, fonts, images, scripts, fonts]), watch);
 let staticBuild = gulp.series(cleanDist, build)
 
-gulp.task('default', gulp.series(cleanDist, buildWatch))
+gulp.task('default', gulp.series(buildWatch))
 gulp.task('static', gulp.series(staticBuild))
 // scriptsMinify
 gulp.task('deploy', gulp.series(staticBuild, ghPages));
