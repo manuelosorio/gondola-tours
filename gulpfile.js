@@ -114,10 +114,12 @@ function scripts() {
       packageCache: {},
     });
     files.forEach((file) => {
-      console.log(file)
-      b.add(file);
+      if (file !== paths.scripts.core_js) {
+        console.log(file)
+        b.add(file);
+      }
     })
-    b.plugin(tsify)
+    b.plugin(tsify, { target: 'es3'})
       .transform(babelify, {
         extensions: ['.ts'],
       }).bundle()
@@ -125,6 +127,23 @@ function scripts() {
       .pipe(source('main.js'))
       .pipe(gulp.dest(paths.scripts.dest))
   })
+}
+function coreJS() {
+  const bundler = browserify({
+    debug: true,
+    baseDir: '.',
+    entries: [paths.scripts.core_js],
+    cache: {},
+    packageCache: {}
+  })
+    .plugin(tsify)
+    .transform(babelify, {
+      extensions: ['.ts']
+    }).bundle();
+  return bundler.pipe(source('core.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.scripts.dest));
 }
 function scriptsMinify() {
   const bundler = browserify({
@@ -134,7 +153,7 @@ function scriptsMinify() {
     cache: {},
     packageCache: {}
   })
-    .plugin(tsify)
+    .plugin(tsify, { target: 'es3'})
     .transform(babelify, {
       extensions: ['.ts']
     }).bundle();
@@ -190,8 +209,8 @@ exports.scripts = scripts
 exports.fonts = fonts
 exports.ghPages = ghPages
 
-let build = gulp.parallel([html, style, fonts, images, scriptsMinify, fonts]);
-let buildWatch = gulp.series(gulp.parallel([html, style, fonts, images, scripts, fonts]), watch);
+let build = gulp.parallel([html, style, fonts, images, scriptsMinify, coreJS, fonts]);
+let buildWatch = gulp.series(gulp.parallel([html, style, fonts, images, scripts, coreJS, fonts]), watch);
 let staticBuild = gulp.series(cleanDist, build)
 
 gulp.task('default', gulp.series(cleanDist, buildWatch))

@@ -1,8 +1,9 @@
-
+import { Style } from "./style";
+import anime from "animejs";
 window.addEventListener("load", () => {
   try {
     formValidation()
-  } catch (err) {console.error(err)}
+  } catch (err) {console.error(err) }
   slider();
 });
 
@@ -133,54 +134,90 @@ function formValidation() {
 
 function slider() {
   let nextSlide = 1,
-    timerDuration = setInterval(updateSlide, 8000)
+    timerDuration = setInterval(updateSlide, 8000);
+  const sliderNavigation = document.querySelectorAll('div[data-nav]');
+  const slides = document.querySelectorAll('div[data-slide]');
+  const sliderContainer = document.querySelector('.slider__container');
+  sliderContainer.addEventListener('mouseenter',() => {
+    clearInterval(timerDuration);
+  });
+  sliderContainer.addEventListener('mouseleave', () => {
+      timerDuration = setInterval(updateSlide, 8000);
+  });
+
   function updateSlide() {
     switch (nextSlide) {
-      case 0: {
-        $("[data-nav='1'], [data-nav='2']").stop().animate({"opacity": "0.75", "backgroundColor": "transparent"}, 50, 'easeOutQuint');
-        $("[data-nav='0']").stop().animate({"backgroundColor": "#f9f9f9", "opacity": "1"}, 50, 'easeOutQuint');
-
-        $("[data-slide='0']").stop().css("z-index", "60").stop().animate({left:0}, 500, 'easeOutQuint');
-        $("[data-slide='1'], [data-slide='2']").stop().css({"z-index": "5"}).animate({left:"-100%"}, 300, 'easeInQuint');
-        $("[data-slide='1'], [data-slide='2']").css({"left": '100%'});
-        nextSlide = 0;
+      case 0 : default: {
+        changeSlide(0);
+        nextSlide = 1
         break;
       }
       case 1: {
-        $("[data-nav='0'], [data-nav='2']").stop().animate({"opacity": "0.75", "backgroundColor": "transparent"}, 50, 'easeOutQuint');
-        $("[data-nav='1']").stop().animate({"backgroundColor": "#f9f9f9", "opacity": "1"}, 50, 'easeOutQuint');
-
-        $("[data-slide='1']").stop().css("z-index", "60").stop().animate({left:0}, 500, 'easeOutQuint');
-        $("[data-slide='0'], [data-slide='2']").stop().css({"z-index": "5"}).animate({left:"-100%"}, 300, 'easeInQuint');
-        $("[data-slide='0'], [data-slide='2']").css({"left": '100%'});
+        changeSlide(1);
         nextSlide = 2;
         break;
       }
-      default: {
-        $("[data-nav='0'], [data-nav='1']").stop().animate({"opacity": "0.75", "backgroundColor": "transparent"}, 50, 'easeOutQuint');
-        $("[data-nav='2']").stop().animate({"backgroundColor": "#f9f9f9", "opacity": "1"}, 250, 'easeOutQuint');
-
-        $("[data-slide='2']").stop().css("z-index", "60").stop().animate({left:0}, 500, 'easeOutQuint');
-        $("[data-slide='0'], [data-slide='1']").stop().css({"z-index": "5"}).animate({left:"-100%"}, 300, 'easeInQuint');
-        $("[data-slide='0'], [data-slide='1']").css({"left": '100%'});
-        nextSlide = 1;
+      case 2: {
+        changeSlide(2);
+        nextSlide = 0;
         break;
       }
     }
   }
-
-  const sliderNavigation = document.querySelectorAll('div[data-nav]');
   sliderNavigation.forEach((slideNav: HTMLElement) => {
     slideNav.addEventListener('click', (e) => {
       clearInterval(timerDuration)
-      console.info(slideNav)
       nextSlide = Number(slideNav.dataset.nav);
-      console.log('nextSlide', Number(slideNav.dataset.nav));
       updateSlide();
     })
-  })
-}
+  });
 
+  function changeSlide(currentSlide: number) {
+    const style = new Style();
+
+    sliderNavigation.forEach((nav: HTMLElement) => {
+      anime({
+        targets: nav,
+        transitionDuration: '50',
+        opacity: '0.75',
+        backgroundColor: 'rgba(249, 249, 249, 0)'
+      })
+      if(nav.isEqualNode(sliderNavigation[currentSlide])) {
+        anime({
+          targets: nav,
+          transitionDuration: '250',
+          opacity: '1',
+          backgroundColor: 'rgba(249, 249, 249, 1)'
+        })
+      }
+    });
+    slides.forEach((slide: HTMLElement) => {
+      style.setCSS(slide, {
+        zIndex: '5'
+      })
+      anime({
+        targets: slide,
+        transitionDuration: '300',
+        easing: 'easeOutQuint',
+        left: '-100%'
+      })
+      style.setCSS(slide, {
+        left: '100%'
+      })
+      if(slide.isEqualNode(slides[currentSlide])){
+        style.setCSS(slide, {
+          zIndex: '60'
+        })
+        anime({
+          targets: slide,
+          easing: 'easeOutQuint',
+          transitionDuration: '500',
+          left: '0'
+        })
+      }
+    });
+  }
+}
 toastr.options = {
   "closeButton": false,
   "debug": false,
