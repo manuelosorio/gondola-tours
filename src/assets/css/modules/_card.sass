@@ -1,6 +1,7 @@
+@use "../vars"
 .card
-  background: $white
-  box-shadow: 0 3px 6px rgba($primary, 0.40)
+  background: vars.$white
+  box-shadow: 0 3px 6px rgba(vars.$primary, 0.40)
   position: relative
   overflow: hidden
   margin: 2% 0 0 2%
@@ -15,15 +16,15 @@
     width: 98%
   &--right
     @extend .card--left
-    background: $primary-light
-  @media screen and (min-width: $medium)
+    background: vars.$primary-light
+  @media screen and (min-width: vars.$medium)
     &__login
       flex-direction: row
     &--left, &--right
       width: 48%
   &__blog
     @extend .card
-  @media screen and (min-width: $medium) and (max-width: 1100px)
+  @media screen and (min-width: vars.$medium) and (max-width: 1100px)
     max-width: 48%
     flex-basis: 48%
     // margin: 0.3rem
@@ -44,14 +45,14 @@
       @extend .card--info__title
       margin: 0
     &__other-info
-      color: lighten($black, 5%)
+      color: lighten(vars.$black, 5%)
       margin: .5rem 0
 
   &--description
-    color: $black
+    color: vars.$black
     padding: .75rem 1rem
     margin: .5rem 0
-    font-weight: $weight-medium
+    font-weight: vars.$weight-medium
     &__blog
       @extend .card--description
       padding: 0
@@ -60,9 +61,9 @@
   z-index: 999
   top: 0
   bottom: 0
-  background: $white
+  background: vars.$white
   transform: translateY(80%)
-  transition: $transition
+  transition: vars.$transition
   &__blog
     width: 48%
     display: flex

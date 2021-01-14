@@ -9,41 +9,41 @@
     *
     *
 /*----------------------  End Base  ----------------------
-
+@use "vars"
 *
   box-sizing: border-box
   &:before, &:after
     box-sizing: inherit
   &::selection
     background: $primary
-    color: $white
+    color: vars.$white
 
 html
   font-size: 92%
-@media (min-width: $medium)
+@media (min-width: vars.$medium)
   html
     font-size: 96%
-@media (min-width: $large)
+@media (min-width: vars.$large)
   html
     font-size: 100%
 body
-  font: $weight-book $text-sm $futura
+  font: vars.$weight-book vars.$text-sm vars.$futura
   line-height: 1.2
-  color: $black
+  color: vars.$black
 h1
-  font: $weight-bold $text-lg $bodoni
+  font: vars.$weight-bold vars.$text-lg vars.$bodoni
   //line-height: 0.6
-  color: $white
-  @media screen and (min-width: $medium)
-    font: $weight-bold $text-lg $bodoni
+  color: vars.$white
+  @media screen and (min-width: vars.$medium)
+    font: vars.$weight-bold vars.$text-lg vars.$bodoni
 h2, h3
-  font: $weight-medium $text-md $bodoni
-  color: $secondary
+  font: vars.$weight-medium vars.$text-md vars.$bodoni
+  color: vars.$secondary
   margin: 1.5rem 0
 a
-  color: $primary-light
+  color: vars.$primary-light
   text-decoration: none
-  font-weight: $weight-medium
+  font-weight: vars.$weight-medium
   text-transform: uppercase
 ul
   margin: 0
@@ -53,11 +53,11 @@ ul
 img
   +size(100%)
 nav
-  background: $white
+  background: vars.$white
   padding: 1rem 0
   height: 55%
 
-  @media screen and (min-width: $medium)
+  @media screen and (min-width: vars.$medium)
     height: initial
 p
   margin: 0

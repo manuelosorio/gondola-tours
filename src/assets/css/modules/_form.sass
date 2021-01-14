@@ -1,3 +1,4 @@
+@use "../vars"
 .form
   display: flex
   flex-direction: column
@@ -6,16 +7,14 @@
 
   &--input
     display: flex
-    background: $white
-    bg: $primary-light
-    bg2: #886AC0
+    background: vars.$white
     width: 100%
     margin: 1rem 0
     padding: .75rem .75rem
-    color: $black
+    color: vars.$black
   &--message
     display: flex
-    background: $white
+    background: vars.$white
     width: 100%
     max-width: 21.875rem
     min-width: 100%

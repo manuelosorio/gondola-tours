@@ -1,3 +1,4 @@
+@use "../vars"
 .btn, .link
   display: block
   text-align: center
@@ -9,7 +10,7 @@
       display: block
       height: 0.5rem
       width: inherit
-      background: rgba($primary, 0.75)
+      background: rgba(vars.$primary, 0.75)
       position: relative
       transition: 200ms ease-in-out
       margin: .5rem 0
@@ -17,13 +18,13 @@
       transform-origin: 0
       transform: scale(0, 1)
     &:hover
-      color: rgba($primary, 1)
+      color: rgba(vars.$primary, 1)
       &:before, &:after
-        background: rgba($primary, 1)
+        background: rgba(vars.$primary, 1)
       &:before
         transform: scale(1, 1)
     &:active
-      background: $primary
+      background: vars.$primary
       color: #f3f3f3
     &__white
       width: 10rem
@@ -34,31 +35,31 @@
         position: relative
         top: 1rem
       &:before, &:after
-        background: rgba($white, 0.75)
+        background: rgba(vars.$white, 0.75)
       &:hover
-        color: rgba($white, 1)
+        color: rgba(vars.$white, 1)
         &:before, &:after
-          background: rgba($white, 1)
+          background: rgba(vars.$white, 1)
       &:active
-        background: $white
-        color: $primary
+        background: vars.$white
+        color: vars.$primary
 .btn--square
-  border: 5px solid $white
-  color: $white
+  border: 5px solid vars.$white
+  color: vars.$white
   &:hover
-    background: $white
-    color: $primary
+    background: vars.$white
+    color: vars.$primary
   &__footer
     @extend .btn--square
     width: 6.125rem
   &__login
-    border: 5px solid $primary
-    color: $primary
+    border: 5px solid vars.$primary
+    color: vars.$primary
     padding: 1rem
     margin-top: .25rem
     &:hover
-      background: $primary
-      color: $white
+      background: vars.$primary
+      color: vars.$white
     &__footer
       @extend .btn--square
       width: 6.125rem

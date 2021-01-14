@@ -17,7 +17,7 @@
     *
 
 /*----------------------  End Layout  ----------------------
-
+@use "vars"
 .l-
   &container
     display: flex
@@ -43,7 +43,7 @@
       // top: 0
       // display: none
       // transform: scaleY(0) translatey(-100%)
-      @media screen and (min-width: $medium)
+      @media screen and (min-width: vars.$medium)
         justify-content: space-between
         flex-direction: row
         text-align: left
@@ -76,23 +76,23 @@
         &--#{$i}
           max-width: 98%
           flex-basis: 98%
-    @media screen and (min-width: $medium)
+    @media screen and (min-width: vars.$medium)
       + .l-column
         margin-top: 0
         margin-left: 2%
       @for $i from 1 through 12
         &--#{$i}
-          max-width: unquote(($gridWidth * $i) - $gutter + ($gutterSpace * $i) + '%')
-          flex-basis: unquote(($gridWidth * $i) - $gutter + ($gutterSpace * $i) + '%')
+          max-width: unquote((vars.$gridWidth * $i) - vars.$gutter + (vars.$gutterSpace * $i) + '%')
+          flex-basis: unquote((vars.$gridWidth * $i) - vars.$gutter + (vars.$gutterSpace * $i) + '%')
   &footer
-    @media screen and (min-width: $medium)
+    @media screen and (min-width: vars.$medium)
       &__left
         width: 50%
         margin-right: 2%
       &__right
         width: 30%
   &tours
-    @media screen and (max-width: $medium)
+    @media screen and (max-width: vars.$medium)
       &__image
         order: 1
       &__description

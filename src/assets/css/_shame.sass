@@ -3,9 +3,9 @@
 /**
   *
   * Any styles not following the name convention
-  * or that I don't know what to do with go heres
+  * or that I don't know what to do with go here.
   *
-
+@use "vars"
 .social
   &--list
     li
@@ -13,17 +13,17 @@
       + li:not(:nth-child(2))
         margin-left: 2rem
   &--icon
-    color: $white
-    transition: $transition
+    color: vars.$white
+    transition: vars.$transition
     font-size: 1.75rem
     &:hover
-      color: $secondary
+      color: vars.$secondary
 .other
   li
     margin: 1rem 0
     a
       @extend .social--icon
-      font-size: $text-sm
+      font-size: vars.$text-sm
 #error-404, #login
   width: 100%
   height: 100vh
@@ -40,25 +40,25 @@
   left: 50%
   margin: 0
   transform: translate(-50%, -50%)
-  @media screen and (min-width: $medium)
+  @media screen and (min-width: vars.$medium)
     transform: translate(-50%, -60%)
   &--joke
     color: white
     margin-bottom: 3rem
-    font: $weight-medium $text-md $futura
+    font: vars.$weight-medium vars.$text-md vars.$futura
   &--code
-    font-size: $text-xl
+    font-size: vars.$text-xl
     line-height: 3rem
     font-kerning: normal
     letter-spacing: 1.5rem
-    @media screen and (min-width: $medium)
+    @media screen and (min-width: vars.$medium)
       letter-spacing: 3rem
   &--message
     letter-spacing: initial
-    font: $weight-book $text-xs $futura
+    font: vars.$weight-book vars.$text-xs vars.$futura
 .input--border
-  border: 3px $primary solid
-  background: $white
+  border: 3px vars.$primary solid
+  background: vars.$white
   padding: 15px
   width: 98%
 form.login

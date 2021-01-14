@@ -1,3 +1,4 @@
+@use "../vars"
 .nav
   &--logo
     display: block
@@ -8,13 +9,13 @@
     li + li
       margin: 2rem 0
 
-      @media screen and (min-width: $medium)
+      @media screen and (min-width: vars.$medium)
         margin: initial
     &__navigation
       @extend .nav--list
     &__customer
       @extend .nav--list
-    @media screen and (min-width: $medium)
+    @media screen and (min-width: vars.$medium)
       &__navigation
         display: flex
         width: 40%

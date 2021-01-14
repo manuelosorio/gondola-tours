@@ -1,10 +1,10 @@
 header.slider__container
   -
-    var slides = [
+    let slides = [
       {
         src: "images/slide-1.png",
         alt: "",
-        caption: "<span class='sub'>ENGAGE IN</span> <br /> THE VENICE GONDOLA EXPERIENCE",
+        caption: "<span class='sub'>Engage in</span> <br /> the Venice Gondola Experience",
         index: "0"
       },
       {
@@ -21,7 +21,7 @@ header.slider__container
       },
     ]
   each slide in slides
-    .slider__slide(data-slide=slide.index style="background: #241e59 url(" + slide.src + ") no-repeat right top; background-size: cover; left: 0;")
+    .slider__slide(data-slide=slide.index style="background: #241e59 url(" + slide.src + ") no-repeat right top; background-size: cover;")
       .slider__caption(class="slider__caption--" + slide.index)
         h1 !{slide.caption}
   .slider__nav
