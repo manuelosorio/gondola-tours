@@ -1,12 +1,14 @@
-import { Style } from "./style";
 import anime from "animejs";
+import { TargetSlide } from "./models/typings";
+import { Style } from "./style";
+import { Slider } from "./slider";
+
 window.addEventListener("load", () => {
   try {
     formValidation()
   } catch (err) {console.error(err) }
-  slider();
+  new Slider();
 });
-
 
 function formValidation() {
   const form = document.querySelector("[name=form]"),
@@ -132,92 +134,7 @@ function formValidation() {
 }
 
 
-function slider() {
-  let nextSlide = 1,
-    timerDuration = setInterval(updateSlide, 8000);
-  const sliderNavigation = document.querySelectorAll('div[data-nav]');
-  const slides = document.querySelectorAll('div[data-slide]');
-  const sliderContainer = document.querySelector('.slider__container');
-  sliderContainer.addEventListener('mouseenter',() => {
-    clearInterval(timerDuration);
-  });
-  sliderContainer.addEventListener('mouseleave', () => {
-      timerDuration = setInterval(updateSlide, 8000);
-  });
 
-  function updateSlide() {
-    switch (nextSlide) {
-      case 0 : default: {
-        changeSlide(0);
-        nextSlide = 1
-        break;
-      }
-      case 1: {
-        changeSlide(1);
-        nextSlide = 2;
-        break;
-      }
-      case 2: {
-        changeSlide(2);
-        nextSlide = 0;
-        break;
-      }
-    }
-  }
-  sliderNavigation.forEach((slideNav: HTMLElement) => {
-    slideNav.addEventListener('click', (e) => {
-      clearInterval(timerDuration)
-      nextSlide = Number(slideNav.dataset.nav);
-      updateSlide();
-    })
-  });
-
-  function changeSlide(currentSlide: number) {
-    const style = new Style();
-
-    sliderNavigation.forEach((nav: HTMLElement) => {
-      anime({
-        targets: nav,
-        transitionDuration: '50',
-        opacity: '0.75',
-        backgroundColor: 'rgba(249, 249, 249, 0)'
-      })
-      if(nav.isEqualNode(sliderNavigation[currentSlide])) {
-        anime({
-          targets: nav,
-          transitionDuration: '250',
-          opacity: '1',
-          backgroundColor: 'rgba(249, 249, 249, 1)'
-        })
-      }
-    });
-    slides.forEach((slide: HTMLElement) => {
-      style.setCSS(slide, {
-        zIndex: '5'
-      })
-      anime({
-        targets: slide,
-        transitionDuration: '300',
-        easing: 'easeOutQuint',
-        left: '-100%'
-      })
-      style.setCSS(slide, {
-        left: '100%'
-      })
-      if(slide.isEqualNode(slides[currentSlide])){
-        style.setCSS(slide, {
-          zIndex: '60'
-        })
-        anime({
-          targets: slide,
-          easing: 'easeOutQuint',
-          transitionDuration: '500',
-          left: '0'
-        })
-      }
-    });
-  }
-}
 toastr.options = {
   "closeButton": false,
   "debug": false,
