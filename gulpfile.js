@@ -185,7 +185,7 @@ function watch() {
   });
   gulp.watch(paths.styles.src, style).on('change', browserSync.reload);
   gulp.watch(paths.images.src, images).on('change', browserSync.reload);
-  gulp.watch(paths.scripts.src, scripts).on('change', browserSync.reload);
+  gulp.watch(paths.scripts.watch, scripts).on('change', browserSync.reload);
   gulp.watch(paths.fonts.src, fonts).on('change', browserSync.reload);
   gulp.watch(paths.html.src, html).on('change', browserSync.reload);
 }
