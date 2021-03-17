@@ -1,6 +1,6 @@
 header.slider__container
   -
-    let slides = [
+    var slides = [
       {
         src: "images/slide-1.png",
         alt: "",
@@ -10,7 +10,8 @@ header.slider__container
       {
         src: "images/slide-2.png",
         alt: "",
-        caption: "20% Off Day Tours* <br><span class='small'>*Discount only applies to weekends from 12pm-5pm</span>",
+        caption: "20% Off Day Tours*",
+        small: "*Discount only applies to weekends from 12pm-5pm",
         index: "1"
       },
       {
@@ -24,6 +25,8 @@ header.slider__container
     .slider__slide(data-slide=slide.index style="background: #241e59 url(" + slide.src + ") no-repeat right top; background-size: cover;")
       .slider__caption(class="slider__caption--" + slide.index)
         h1 !{slide.caption}
+        if !!slide.small
+          small.small !{slide.small}
   .slider__nav
     each slide in slides
       .slider__nav--item(data-nav=slide.index)
