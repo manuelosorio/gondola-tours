@@ -1,6 +1,3 @@
-import anime from "animejs";
-import { TargetSlide } from "./models/typings";
-import { Style } from "./style";
 import { Slider } from "./slider";
 
 window.addEventListener("load", () => {

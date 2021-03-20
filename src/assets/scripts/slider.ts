@@ -5,7 +5,7 @@ import anime from "animejs";
 export function Slider() {
   let nextSlide = 1,
     activeSlide = 0,
-    timerDuration = setInterval(updateSlide, 8000);
+    timerDuration = setInterval(updateSlide, 6000);
   const sliderNavigation = document.querySelectorAll('div[data-nav]');
   const slides = document.querySelectorAll('div[data-slide]');
   const sliderContainer = document.querySelector('.slider__container');
@@ -13,7 +13,7 @@ export function Slider() {
     clearInterval(timerDuration);
   });
   sliderContainer.addEventListener('mouseleave', () => {
-    timerDuration = setInterval(updateSlide, 8000);
+    timerDuration = setInterval(updateSlide, 6000);
   });
 
   function updateSlide(targetSlide?: TargetSlide) {
@@ -74,7 +74,8 @@ export function Slider() {
       switch(targetSlide) {
         default : case "next": {
           style.setCSS(slide, {
-            zIndex: '5'
+            zIndex: '5',
+            left: '0',
           });
           anime({
             targets: slide,
@@ -108,10 +109,10 @@ export function Slider() {
             targets: slide,
             transitionDuration: '1300',
             easing: 'easeOutQuint',
-            right: '-100%'
+            left: '100%'
           });
           style.setCSS(slide, {
-            right: '100%'
+            left: '-100%'
           });
           if(slide.isEqualNode(slides[currentSlide])){
             style.setCSS(slide, {
