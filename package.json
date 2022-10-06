@@ -80,7 +80,7 @@
     "jquery-validation": "^1.19.3",
     "node.normalize.scss": "^3.0.3",
     "notyf": "^3.9.0",
-    "snyk": "^1.425.4",
+    "snyk": "^1.996.0",
     "toastr": "^2.1.4"
   },
   "resolutions": {
